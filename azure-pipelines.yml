@@ -1,8 +1,3 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - main
 
@@ -12,15 +7,12 @@ pool:
 container: checkmarx/kics:debian
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-# run in CI mode, do not fail the pipeline on results found and export the report in both json and SARIF format.
-- script: |
+  # run in CI mode, do not fail the pipeline on results found and export the report in both json and SARIF format.
+  - script: |
       /app/bin/kics scan --ci -p ${PWD} -o ${PWD} --report-formats json,sarif --ignore-on-exit results
       cat results.json
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+  # scan results should be visible in the SARIF viewer tab of the build.
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: $(System.DefaultWorkingDirectory)/results.sarif
+      artifactName: CodeAnalysisLogs
