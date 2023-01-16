@@ -20,7 +20,7 @@ jobs:
       - name: Run KICS Scan with SARIF result
         uses: checkmarx/kics-github-action@v1.5
         with:
-          path: Dockerfile
+          path: azuredeploy.json
           # to continue with findings - not stop the build
           # fix error 50
           ignore_on_exit: results
