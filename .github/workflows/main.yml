@@ -29,7 +29,7 @@ jobs:
           # in this example it will generate:
           # - results-dir/results.json
           # - results-dir/results.sarif
-          token: ${{ secrets.GITHUB_TOKEN }}
+          #token: ${{ secrets.GITHUB_TOKEN }}
           output_path: results-dir/
           #platform_type: Dockerfile
           output_formats: 'json,sarif'
